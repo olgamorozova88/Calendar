@@ -1,0 +1,55 @@
+.calendar__header {
+  padding: 11px 0;
+  display: flex;
+  align-items: center;
+}
+
+.calendar__current-day {
+  margin-left: 10px;
+}
+
+.calendar__month {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.calendar__day {
+  width: calc(100% / 7);
+  height: 120px;
+  padding: 8px;
+  border: 1px solid $dark-200;
+  vertical-align: top;
+  background-color: $light-100;
+  transition: background-color ease-in 0.25s;
+
+  &:hover {
+    background-color: $neutral-100;
+    transition: background-color ease-in 0.25s;
+  }
+
+  &:active {
+    box-shadow: 0px 0px 10px 2px $blue-300;
+    background-color: transparent;
+  }
+
+  &--event {
+    background-color: $blue-100;
+
+    &:hover {
+      background-color: $blue-200;
+    }
+
+    &:active {
+      background-color: $blue-100;
+    }
+  }
+
+  &--active{
+    box-shadow: 0px 0px 10px 2px $blue-300;
+  }
+}
+
+.calendar__date {
+  display: inline-block;
+  margin-bottom: 8px;
+}

@@ -1,0 +1,13 @@
+.control-search {
+  display: flex;
+  align-items: center;
+}
+
+.control-search__icon {
+  margin-right: 21px;
+  fill: $neutral-200;
+}
+
+.control-search__search {
+  width: 210px;
+}

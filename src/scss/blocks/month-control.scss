@@ -1,0 +1,48 @@
+.month-control {
+  width: 220px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.month-control__button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 10px;
+  background-color: transparent;
+  border-radius: 4px;
+  box-shadow: inset 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
+  color: $dark-100;
+  transition: all ease-in 0.25s;
+
+  & svg {
+    fill: currentColor;
+  }
+
+  &:hover {
+    background-color: $dark-100;
+    color: $light-100;
+    transition: all ease-in 0.25s;
+  }
+
+  &:active {
+    background-color: $neutral-200;
+    color: $light-100;
+    transition: all ease-in 0.25s;
+    box-shadow: none;
+  }
+
+  &:disabled {
+    border: 1px solid $neutral-200;
+    color: $neutral-200;
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+.month-control__month-name {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.16;
+}
