@@ -1,6 +1,6 @@
 # Тестовое задание - верстка календаря по макету, частичная js логика.
 
-[Опубликованная версия](https://olgamorozova88.github.io/Stat4market/).
+[Опубликованная версия](https://olgamorozova88.github.io/Calendar/).
 
 ---
 
