@@ -4,7 +4,6 @@ const date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
 const calendar = document.querySelector('.calendar__body');
-const dateCells = document.querySelectorAll('.calendar__date');
 const currMonthAndYear = document.querySelector('.month-control__month-name');
 const buttonPrev = document.querySelector('.month-control__button--prev');
 const buttonNext = document.querySelector('.month-control__button--next');
@@ -103,7 +102,7 @@ const getMonthName = (i) => {
   return months[i];
 }
 
-// Склонение месяца 
+// Склонение месяца для заполнения формы добавления нового события
 
 const monthDeclension = (month) => {
   let monthName;
@@ -219,11 +218,16 @@ const showPopup = (arr, className) => {
     fillDate(element);
     addEventForm.addEventListener('submit', (evt) => {
       evt.preventDefault();
+      let eventTittle = addEvent.querySelector('.form__input--event').value;
+      createElement('span', 'event-tittle', element, eventTittle);
+      element.classList.add('calendar__day--event');
+      clearForm();
+      element.classList.remove(className);
+      addEvent.classList.remove('event-modal--show');
     })
   })
 }) 
 }
-
 
 // Очищаем форму создания нового события
 
