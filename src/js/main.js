@@ -8,7 +8,15 @@ const currMonthAndYear = document.querySelector('.month-control__month-name');
 const buttonPrev = document.querySelector('.month-control__button--prev');
 const buttonNext = document.querySelector('.month-control__button--next');
 const addEvent = document.querySelector('.event-modal--new');
-const addEventForm = addEvent.querySelector('.form')
+const addEventForm = addEvent.querySelector('.form');
+const eventDate = addEvent.querySelector('.form__input--date');
+const eventTittle = addEvent.querySelector('.form__input--event');
+const eventPartisipants = addEvent.querySelector('.form__input--participants');
+const closeFormButton = addEvent.querySelector('.event-modal__close-button');
+const weekdays = [
+  'Понедельник, ', 'Вторник, ', 'Среда, ', 'Четверг, ', 
+  'Пятница, ', 'Суббота, ', 'Воскресенье, '
+]
 
 // Получаем последний день месяца. 
 // Функция принимает аргументами год, месяц и номер дня.
@@ -207,24 +215,32 @@ const showPopup = (arr, className) => {
     addEvent.classList.add('event-modal--show');
     addEvent.style.left = element.getBoundingClientRect().right + 'px';
     addEvent.style.top = element.getBoundingClientRect().top + 'px';
-    let closeFormButton = addEvent.querySelector('.event-modal__close-button');
-    closeFormButton.addEventListener('click', () => {
+    const onCloseButtonClick = () => {
       clearForm();
       element.classList.remove(className);
       addEvent.classList.remove('event-modal--show');
       addEvent.style.left = '';
       addEvent.style.top = '';
-    });
+    };
+    closeFormButton.addEventListener('click', onCloseButtonClick);
     fillDate(element);
-    addEventForm.addEventListener('submit', (evt) => {
+    const onFormSubmit = (evt) => {
       evt.preventDefault();
-      let eventTittle = addEvent.querySelector('.form__input--event').value;
-      createElement('span', 'event-tittle', element, eventTittle);
+      createElement('div', 'event', element);
+      const dayEvent = element.querySelector('.event');
+      const dayEventTittle = eventTittle.value;
+      const dayEventDescription = eventPartisipants.value;
+      createElement('span', 'event__tittle', dayEvent, dayEventTittle);
+      createElement('span', 'event__description', dayEvent, dayEventDescription);
       element.classList.add('calendar__day--event');
       clearForm();
       element.classList.remove(className);
       addEvent.classList.remove('event-modal--show');
-    })
+      closeFormButton.removeEventListener('click', onCloseButtonClick);
+      addEventForm.removeEventListener('submit', onFormSubmit);
+    };
+
+    addEventForm.addEventListener('submit', onFormSubmit);
   })
 }) 
 }
@@ -232,9 +248,6 @@ const showPopup = (arr, className) => {
 // Очищаем форму создания нового события
 
 const clearForm = () => {
-  let eventDate = addEvent.querySelector('.form__input--date');
-  let eventTittle = addEvent.querySelector('.form__input--event');
-  let eventPartisipants = addEvent.querySelector('.form__input--participants');
   eventTittle.value = '';
   eventPartisipants.value = '';
   eventDate.value = '';
@@ -243,7 +256,6 @@ const clearForm = () => {
 // Функция автозаполнения даты в модальном окне добавления события 
 
 const fillDate = (element) => {
-  let eventDate = addEvent.querySelector('.form__input--date');
   let date = element.querySelector('.calendar__date');
   eventDate.value = `${date.textContent} ${monthDeclension(month)} ${year}`;
 }
@@ -252,10 +264,6 @@ const fillDate = (element) => {
 
 const renderDates = (year, month, element) => {
   element.innerHTML = '';
-  let weekday = [
-    'Понедельник, ', 'Вторник, ', 'Среда, ', 'Четверг, ', 
-    'Пятница, ', 'Суббота, ', 'Воскресенье, '
-  ]
   let dates = getDates(year, month);
   createElement('table', 'calendar__month', calendar);
   let table = document.querySelector('.calendar__month');
@@ -271,8 +279,8 @@ const renderDates = (year, month, element) => {
     };
   }
   let days = document.querySelectorAll('.calendar__day');
-  for (let i = 0; i < weekday.length; i++) {
-    createElement('span', 'calendar__weekday', days[i], weekday[i]);
+  for (let i = 0; i < weekdays.length; i++) {
+    createElement('span', 'calendar__weekday', days[i], weekdays[i]);
   }
   for (let i = 0; i < dates.length; i++) {
     createElement('span', 'calendar__date', days[i], dates[i]);
