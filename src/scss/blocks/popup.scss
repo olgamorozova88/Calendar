@@ -1,4 +1,4 @@
-.event-modal {
+.popup {
   display: none;
   margin-left: 16px;
   width: 290px;
@@ -10,7 +10,7 @@
   }
 }
 
-.event-modal__wrapper {
+.popup__wrapper {
   width: 100%;
   padding: 12px;
   position: relative;
@@ -30,13 +30,13 @@
   }
 }
 
-.event-modal--show {
+.popup--show {
   display: block;
   position: absolute;
   z-index: 1;
 }
 
-.event-modal__close-button {
+.popup__close-button {
   display: flex;
   justify-content: center;
   align-items: center;

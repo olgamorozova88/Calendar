@@ -7,12 +7,13 @@ const calendar = document.querySelector('.calendar__body');
 const currMonthAndYear = document.querySelector('.month-control__month-name');
 const buttonPrev = document.querySelector('.month-control__button--prev');
 const buttonNext = document.querySelector('.month-control__button--next');
-const addEvent = document.querySelector('.event-modal--new');
+const popup = document.querySelector('.popup');
+const addEvent = document.querySelector('.popup--new');
 const addEventForm = addEvent.querySelector('.form');
 const eventDate = addEvent.querySelector('.form__input--date');
 const eventTittle = addEvent.querySelector('.form__input--event');
 const eventPartisipants = addEvent.querySelector('.form__input--participants');
-const closeFormButton = addEvent.querySelector('.event-modal__close-button');
+const closePopup = addEvent.querySelector('.popup__close-button');
 const weekdays = [
   'Понедельник, ', 'Вторник, ', 'Среда, ', 'Четверг, ', 
   'Пятница, ', 'Суббота, ', 'Воскресенье, '
@@ -170,8 +171,8 @@ const showPrevMonthAndYear = () => {
   year = getPrevYear(year, month);
   month = getPrevMonth(month);
   element = calendar;
-  if (addEvent.classList.contains('event-modal--show')) {
-    addEvent.classList.remove('event-modal--show')
+  if (addEvent.classList.contains('popup--show')) {
+    addEvent.classList.remove('popup--show')
   }
   renderCalendar(year, month, element);
 }
@@ -183,8 +184,8 @@ const showNextMonthAndYear = () => {
   year = getNextYear(year, month);
   month = getNextMonth(month)
   renderCalendar(year, month, element);
-  if (addEvent.classList.contains('event-modal--show')) {
-    addEvent.classList.remove('event-modal--show')
+  if (addEvent.classList.contains('popup--show')) {
+    addEvent.classList.remove('popup--show')
   }
 }
 
@@ -212,18 +213,15 @@ const showPopup = (arr, className) => {
       }
     }
     element.classList.add(className);
-    addEvent.classList.add('event-modal--show');
-    addEvent.style.left = element.getBoundingClientRect().right + 'px';
-    addEvent.style.top = element.getBoundingClientRect().top + 'px';
     const onCloseButtonClick = () => {
       clearForm();
       element.classList.remove(className);
-      addEvent.classList.remove('event-modal--show');
+      addEvent.classList.remove('popup--show');
       addEvent.style.left = '';
       addEvent.style.top = '';
+      closePopup.removeEventListener('click', onCloseButtonClick);
+      addEventForm.removeEventListener('submit', onFormSubmit);
     };
-    closeFormButton.addEventListener('click', onCloseButtonClick);
-    fillDate(element);
     const onFormSubmit = (evt) => {
       evt.preventDefault();
       createElement('div', 'event', element);
@@ -235,12 +233,18 @@ const showPopup = (arr, className) => {
       element.classList.add('calendar__day--event');
       clearForm();
       element.classList.remove(className);
-      addEvent.classList.remove('event-modal--show');
-      closeFormButton.removeEventListener('click', onCloseButtonClick);
+      addEvent.classList.remove('popup--show');
+      closePopup.removeEventListener('click', onCloseButtonClick);
       addEventForm.removeEventListener('submit', onFormSubmit);
     };
-
-    addEventForm.addEventListener('submit', onFormSubmit);
+    if (!element.classList.contains('calendar__day--event')) {
+      addEvent.classList.add('popup--show');
+      addEvent.style.left = element.getBoundingClientRect().right + 'px';
+      addEvent.style.top = element.getBoundingClientRect().top + 'px';
+      fillDate(element);
+      closePopup.addEventListener('click', onCloseButtonClick);
+      addEventForm.addEventListener('submit', onFormSubmit);
+    }
   })
 }) 
 }

@@ -25,7 +25,7 @@
             <path
               d="M17.78 16.7197L12.6613 11.601C13.6529 10.3763 14.2498 8.82 14.2498 7.12503C14.2498 3.19657 11.0534 9.15527e-05 7.1249 9.15527e-05C3.19644 9.15527e-05 0 3.19654 0 7.125C0 11.0535 3.19648 14.2499 7.12493 14.2499C8.8199 14.2499 10.3761 13.653 11.6009 12.6615L16.7196 17.7802C16.8658 17.9264 17.0578 17.9999 17.2498 17.9999C17.4418 17.9999 17.6338 17.9264 17.7801 17.7802C18.0733 17.4869 18.0733 17.0129 17.78 16.7197ZM7.12493 12.7499C4.02296 12.7499 1.5 10.227 1.5 7.125C1.5 4.02302 4.02296 1.50005 7.12493 1.50005C10.2269 1.50005 12.7499 4.02302 12.7499 7.125C12.7499 10.227 10.2269 12.7499 7.12493 12.7499Z" />
           </svg>
-          <input class="control-search__input input" type="search" placeholder="Placeholder">
+          <input class="input control-search__input " type="search" placeholder="Placeholder">
         </div>
       </div>
     </div>
@@ -57,10 +57,9 @@
         </div>
       </div>
     </div>
-    <div class="event-modal event-modal--new">
-      <div class="event-modal__wrapper">
-        <button class="button event-modal__close-button" type="button"
-          aria-label="Закрыть окно добавления нового события">
+    <div class="popup popup--new">
+      <div class="popup__wrapper">
+        <button class="button popup__close-button" type="button" aria-label="Закрыть окно добавления нового события">
           <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M3.54969 3.00004L5.88597 0.663692C6.03801 0.511722 6.03801 0.266008 5.88597 0.114038C5.734 -0.0379314 5.48829 -0.0379314 5.33632 0.114038L2.99996 2.45039L0.663685 0.114038C0.511644 -0.0379314 0.266001 -0.0379314 0.114031 0.114038C-0.0380103 0.266008 -0.0380103 0.511722 0.114031 0.663692L2.45031 3.00004L0.114031 5.33639C-0.0380103 5.48836 -0.0380103 5.73407 0.114031 5.88604C0.189767 5.96185 0.289348 5.99993 0.388858 5.99993C0.488368 5.99993 0.587878 5.96185 0.663685 5.88604L2.99996 3.54969L5.33632 5.88604C5.41212 5.96185 5.51163 5.99993 5.61114 5.99993C5.71065 5.99993 5.81016 5.96185 5.88597 5.88604C6.03801 5.73407 6.03801 5.48836 5.88597 5.33639L3.54969 3.00004Z" />
@@ -79,6 +78,30 @@
         </form>
       </div>
     </div>
+
+    <!-- <div class="popup popup--review">
+      <div class="event-modal__wrapper">
+        <button class="button event-modal__close-button" type="button"
+          aria-label="Закрыть окно добавления нового события">
+          <svg width="6" height="6" viewBox="0 0 6 6" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M3.54969 3.00004L5.88597 0.663692C6.03801 0.511722 6.03801 0.266008 5.88597 0.114038C5.734 -0.0379314 5.48829 -0.0379314 5.33632 0.114038L2.99996 2.45039L0.663685 0.114038C0.511644 -0.0379314 0.266001 -0.0379314 0.114031 0.114038C-0.0380103 0.266008 -0.0380103 0.511722 0.114031 0.663692L2.45031 3.00004L0.114031 5.33639C-0.0380103 5.48836 -0.0380103 5.73407 0.114031 5.88604C0.189767 5.96185 0.289348 5.99993 0.388858 5.99993C0.488368 5.99993 0.587878 5.96185 0.663685 5.88604L2.99996 3.54969L5.33632 5.88604C5.41212 5.96185 5.51163 5.99993 5.61114 5.99993C5.71065 5.99993 5.81016 5.96185 5.88597 5.88604C6.03801 5.73407 6.03801 5.48836 5.88597 5.33639L3.54969 3.00004Z" />
+          </svg>
+        </button>
+        <form class="form" action="#" method="post">
+          <div class="form__info">
+
+          </div>
+          <div class="form__inputs">
+            <input class="input form__input form__input--event" type="text" placeholder="Описание">
+          </div>
+          <div class="form__buttons">
+            <button class="button secondary__button form__button form__button--add" type="submit">Готово</button>
+            <button class="button secondary__button form__button form__button--delete" type="button">Удалить</button>
+          </div>
+        </form>
+      </div>
+    </div> -->
 
   </main>
   <script src="js/main.min.js"></script>
