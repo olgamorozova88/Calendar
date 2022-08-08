@@ -334,6 +334,10 @@
   min-height: 182px;
 }
 
+.popup--review {
+  min-height: 302px;
+}
+
 .popup__wrapper {
   width: 100%;
   padding: 12px;
@@ -373,16 +377,32 @@
   color: #6b6b6b;
 }
 
+.form__info {
+  margin-bottom: 8px;
+}
+
 .form__inputs {
-  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   margin-bottom: 24px;
 }
 
+.form__inputs--review {
+  margin-bottom: 8px;
+}
+
 .form__input {
   width: 100%;
+}
+
+.form__input:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.form__input--event-description {
+  resize: none;
+  height: 125px;
 }
 
 .form__buttons {
@@ -391,4 +411,32 @@
 
 .form__button--add {
   margin-right: 20px;
+}
+
+.form-info__event-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
+  line-height: 1.16;
+  color: #292929;
+}
+
+.form-info__event-date {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 300;
+  color: #292929;
+}
+
+.form-info__event-participants {
+  margin: 0;
+  font-weight: 300;
+}
+
+.form-info__participants-name {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  color: #292929;
 }
