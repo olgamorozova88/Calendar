@@ -1,0 +1,28 @@
+.form-info__event-title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 18px;
+  line-height: 1.16;
+  color: $dark-200;
+}
+
+.form-info__event-date {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 300;
+  color: $dark-200;
+}
+
+.form-info__event-participants {
+  margin: 0;
+  font-weight: 300;
+}
+
+.form-info__participants-name {
+  display: block;
+  margin-top: 4px;
+  font-weight: 400;
+  font-size: 12px;
+  color: $dark-200;
+}
+

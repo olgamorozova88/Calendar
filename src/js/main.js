@@ -1,5 +1,3 @@
-// Объявляем все нужные переменные для инициализации календаря
-
 const date = new Date();
 let year = date.getFullYear();
 let month = date.getMonth();
@@ -7,13 +5,22 @@ const calendar = document.querySelector('.calendar__body');
 const currMonthAndYear = document.querySelector('.month-control__month-name');
 const buttonPrev = document.querySelector('.month-control__button--prev');
 const buttonNext = document.querySelector('.month-control__button--next');
-const popup = document.querySelector('.popup');
 const addEvent = document.querySelector('.popup--new');
+const closeAddEventPopup = addEvent.querySelector('.popup__close-button');
 const addEventForm = addEvent.querySelector('.form');
 const eventDate = addEvent.querySelector('.form__input--date');
 const eventTittle = addEvent.querySelector('.form__input--event');
-const eventPartisipants = addEvent.querySelector('.form__input--participants');
-const closePopup = addEvent.querySelector('.popup__close-button');
+const eventParticipants = addEvent.querySelector('.form__input--participants');
+const reviewEvent = document.querySelector('.popup--review');
+const reviewEventTitle = reviewEvent.querySelector('.form-info__event-title');
+const reviewEventDate = reviewEvent.querySelector('.form-info__event-date');
+const reviewEventParticipants = reviewEvent.querySelector('.form-info__participants-name');
+const reviewEventForm = reviewEvent.querySelector('.form');
+const reviewInfoEventTitle = reviewEvent.querySelector('.form-info__event-title');
+const reviewInfoEventDate = reviewEvent.querySelector('.form-info__event-date');
+const reviewInfoEventParticipants = reviewEvent.querySelector('.form-info__participants-name');
+const closeReviewEventPopup = reviewEvent.querySelector('.popup__close-button');
+const deleteEventButton = reviewEvent.querySelector('.form__button--delete');
 const weekdays = [
   'Понедельник, ', 'Вторник, ', 'Среда, ', 'Четверг, ', 
   'Пятница, ', 'Суббота, ', 'Воскресенье, '
@@ -213,37 +220,72 @@ const showPopup = (arr, className) => {
       }
     }
     element.classList.add(className);
-    const onCloseButtonClick = () => {
+    const onCloseAddEventPopupButtonClick = () => {
       clearForm();
       element.classList.remove(className);
       addEvent.classList.remove('popup--show');
       addEvent.style.left = '';
       addEvent.style.top = '';
-      closePopup.removeEventListener('click', onCloseButtonClick);
-      addEventForm.removeEventListener('submit', onFormSubmit);
+      closeAddEventPopup.removeEventListener('click', onCloseAddEventPopupButtonClick);
+      addEventForm.removeEventListener('submit', onAddEventFormSubmit);
     };
-    const onFormSubmit = (evt) => {
+    const onCloseReviewEventPopupButtonClick = () => {
+      clearForm();
+      element.classList.remove(className);
+      reviewEvent.classList.remove('popup--show');
+      reviewEvent.style.left = '';
+      reviewEvent.style.top = '';
+      closeReviewEventPopup.removeEventListener('click', onCloseReviewEventPopupButtonClick);
+    };
+    const onAddEventFormSubmit = (evt) => {
       evt.preventDefault();
       createElement('div', 'event', element);
       const dayEvent = element.querySelector('.event');
       const dayEventTittle = eventTittle.value;
-      const dayEventDescription = eventPartisipants.value;
+      const dayEventDescription = eventParticipants.value;
       createElement('span', 'event__tittle', dayEvent, dayEventTittle);
       createElement('span', 'event__description', dayEvent, dayEventDescription);
       element.classList.add('calendar__day--event');
       clearForm();
       element.classList.remove(className);
       addEvent.classList.remove('popup--show');
-      closePopup.removeEventListener('click', onCloseButtonClick);
-      addEventForm.removeEventListener('submit', onFormSubmit);
+      closeAddEventPopup.removeEventListener('click', onCloseAddEventPopupButtonClick);
+      addEventForm.removeEventListener('submit', onAddEventFormSubmit);
     };
-    if (!element.classList.contains('calendar__day--event')) {
+    const onReviewEventFormSubmit = (evt) => {
+      evt.preventDefault();
+      element.classList.remove(className);
+      reviewEvent.classList.remove('popup--show');
+      closeReviewEventPopup.removeEventListener('click', onCloseReviewEventPopupButtonClick);
+      reviewEventForm.removeEventListener('submit', onReviewEventFormSubmit);
+    };
+    const onDeleteButtonClick = () => {
+      const event = element.querySelector('.event');
+      element.removeChild(event);
+      element.classList.remove(className);
+      element.classList.remove('calendar__day--event');
+      reviewEvent.classList.remove('popup--show');
+      reviewEvent.style.left = '';
+      reviewEvent.style.top = '';
+      closeReviewEventPopup.removeEventListener('click', onCloseReviewEventPopupButtonClick);
+      reviewEventForm.removeEventListener('submit', onReviewEventFormSubmit);
+      deleteEventButton.removeEventListener('click', onDeleteButtonClick);
+    }
+    if (element.classList.contains('calendar__day--event')) {
+      reviewEvent.classList.add('popup--show');
+      reviewEvent.style.left = element.getBoundingClientRect().right + 'px';
+      reviewEvent.style.top = element.getBoundingClientRect().top + 'px';
+      fillReviewEventInfo(element);
+      closeReviewEventPopup.addEventListener('click', onCloseReviewEventPopupButtonClick);
+      reviewEventForm.addEventListener('submit', onReviewEventFormSubmit);
+      deleteEventButton.addEventListener('click', onDeleteButtonClick);
+    } else {
       addEvent.classList.add('popup--show');
       addEvent.style.left = element.getBoundingClientRect().right + 'px';
       addEvent.style.top = element.getBoundingClientRect().top + 'px';
-      fillDate(element);
-      closePopup.addEventListener('click', onCloseButtonClick);
-      addEventForm.addEventListener('submit', onFormSubmit);
+      fillAddEventDate(element);
+      closeAddEventPopup.addEventListener('click', onCloseAddEventPopupButtonClick);
+      addEventForm.addEventListener('submit', onAddEventFormSubmit);
     }
   })
 }) 
@@ -253,14 +295,24 @@ const showPopup = (arr, className) => {
 
 const clearForm = () => {
   eventTittle.value = '';
-  eventPartisipants.value = '';
+  eventParticipants.value = '';
   eventDate.value = '';
 }
 
 // Функция автозаполнения даты в модальном окне добавления события 
 
-const fillDate = (element) => {
-  let date = element.querySelector('.calendar__date');
+const fillReviewEventInfo = (element) => {
+  const date = element.querySelector('.calendar__date');
+  reviewInfoEventDate.textContent = `${date.textContent} ${monthDeclension(month)} ${year}`;
+  const event = element.querySelector('.event');
+  const eventTittle = event.querySelector('.event__tittle');
+  const eventParticipants = event.querySelector('.event__description');
+  reviewEventTitle.textContent = eventTittle.textContent;
+  reviewEventParticipants.textContent = eventParticipants.textContent;
+}
+
+const fillAddEventDate = (element) => {
+  const date = element.querySelector('.calendar__date');
   eventDate.value = `${date.textContent} ${monthDeclension(month)} ${year}`;
 }
 
