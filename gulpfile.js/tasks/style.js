@@ -20,7 +20,6 @@ const style = () => {
     .pipe(sass())
     .pipe(autoprefixer())
     .pipe(groupmedia())
-    .pipe(gulp.dest(path.style.dest))
     .pipe(csso())
     .pipe(rename( {suffix: ".min"} ))
     .pipe(gulpif(app.isDev, sourcemap.write(".")))

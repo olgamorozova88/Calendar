@@ -15,7 +15,6 @@ const scripts = () => {
     .pipe(plumber())
     .pipe(gulpif(app.isDev, sourcemap.init()))
     .pipe(terser())
-    .pipe(gulp.dest(path.scripts.dest))
     .pipe(rename( {suffix: ".min"} ))
     .pipe(gulpif(app.isDev, sourcemap.write(".")))
     .pipe(gulp.dest(path.scripts.dest));

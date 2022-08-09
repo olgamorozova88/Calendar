@@ -246,6 +246,10 @@ const showPopup = (arr, className) => {
       createElement('span', 'event__tittle', dayEvent, dayEventTittle);
       createElement('span', 'event__description', dayEvent, dayEventDescription);
       element.classList.add('calendar__day--event');
+      const key = `${element.dataset.day} ${month} ${year}`;
+      const state = {};
+      state[key] = element.innerHTML;
+      localStorage.setItem(key, JSON.stringify(state));
       clearForm();
       element.classList.remove(className);
       addEvent.classList.remove('popup--show');
@@ -270,6 +274,8 @@ const showPopup = (arr, className) => {
       closeReviewEventPopup.removeEventListener('click', onCloseReviewEventPopupButtonClick);
       reviewEventForm.removeEventListener('submit', onReviewEventFormSubmit);
       deleteEventButton.removeEventListener('click', onDeleteButtonClick);
+      const key = `${element.dataset.day} ${month} ${year}`;
+      localStorage.removeItem(key);
     }
     if (element.classList.contains('calendar__day--event')) {
       reviewEvent.classList.add('popup--show');
@@ -331,15 +337,21 @@ const renderDates = (year, month, element) => {
   let weeks = document.querySelectorAll('.calendar__week');
   for (let i = 0; i < weeks.length; i++) {
     for (let j = 0; j < 7; j++) {
-      createElement('td', 'calendar__day', weeks[i])
-    };
+      createElement('td', 'calendar__day', weeks[i]);
+    }
   }
   let days = document.querySelectorAll('.calendar__day');
   for (let i = 0; i < weekdays.length; i++) {
     createElement('span', 'calendar__weekday', days[i], weekdays[i]);
   }
-  for (let i = 0; i < dates.length; i++) {
+  for (let i = 0, d = 1; i < dates.length; i++, d++) {
+    days[i].dataset.day = d;
     createElement('span', 'calendar__date', days[i], dates[i]);
+    const key = `${days[i].dataset.day} ${month} ${year}`;
+    if(JSON.parse(localStorage.getItem(key)) !== null) {
+      days[i].classList.add('calendar__day--event');
+     days[i].innerHTML = (JSON.parse(localStorage.getItem(key))[key]);
+    }
   }
   showPopup(days, 'calendar__day--active');
 };
